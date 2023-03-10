@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<style>
+        table.center {
+      margin-left: auto; 
+      margin-right: auto;
+    }
+    	body{
+			background-image: url('prot2.png');
+			background-size: cover;
+	}
+</style>
+<body>   
+    <input id="searchbar" type="text" name="search">
+
+    <ul id="list-holder">
+
+    </ul>
+    <table id="userdata" border="5" class = "center" style="background: white">            
+            <th>ID</th>
+            <th>Name</th>
+            <th>Formula </th>
+            <th>Weight (Da) </th>
+            <th>PDB</th>     
+    </table>
+<script>
+        var data = {
+        "protein": [{
+            "ID": "1",
+            "Name": "Amitriptyline",
+            "Formula": "C20H24N",
+            "Weight": "278.41126",
+            "link": "href=amitriptyline.pdb"
+        },
+        {
+            "ID": "2",
+            "Name": "Chlorpromazine",
+            "Formula": "C17H20ClN2S",
+            "Weight": "	319.8721",
+            "link": "href=chlorpromazine.pdb"
+        },
+                            {
+            "ID": "3",
+            "Name": "NMP (1-(Naphthalen-1-ylmethyl)piperazine)",
+            "Formula": "C15H19N2",
+            "Weight": "	227.32476",
+            "link": "href=NMP.pdb"
+        }    
+    ]
+        
+    }
+
+        $.each(data.protein, function(i, protein) {
+            var tblRow =    "<tr><td>" + protein.ID + 
+                            "</td><td>" + protein.Name + 
+                            "</td><td>" + protein.Formula +
+                            "</td><td>" + protein.Weight + 
+                            "</td><td><a target='_blank' href='"+ protein.link.split('href=')[1]+"'>"+protein.link.split('href=')[1]+"</a></td></tr>"
+            $(tblRow).appendTo("#userdata tbody");
+        });
+
+    
+</script> 
+</body>
+        <!-- COMMENTO -->
+</html>
+    
+
