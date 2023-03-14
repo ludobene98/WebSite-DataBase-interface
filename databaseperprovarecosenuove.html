@@ -2,70 +2,767 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head> 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-</head>
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <style>
-        table.center {
-      margin-left: auto; 
-      margin-right: auto;
-    }
-    	body{
-			background-image: url('prot2.png');
-			background-size: cover;
+    	*{
+		font-family: 'Montserrat';
+		font-weight: lighter;
 	}
+    table.center {
+        margin-left: auto; 
+        margin-right: auto;
+    }
+    body {
+        background-image: url('sfondoprova.png');
+        background-size: cover;
+        background-attachment: fixed;
+    }
+    			h1 {
+				background-image: url('homeimage-removebg-preview.png');
+				background-repeat: no-repeat;
+				background-position: left center;
+				padding-left: 50px;
+				font-weight: bold;
+				text-align: center;
+				margin-top: 20px;
+				background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2));
+				padding: 10px;
+			}
 </style>
+</head>
 <body>   
+    
+    <h1><img src="databaseimage-removebg-preview.png" alt="Logo"></h1>
+    
+    <label for="searchbar">Filter search:</label>
     <input id="searchbar" type="text" name="search">
 
-    <ul id="list-holder">
-
-    </ul>
-    <table id="userdata" border="5" class = "center" style="background: white">            
-            <th>ID</th>
-            <th>Name</th>
-            <th>Formula </th>
-            <th>Weight (Da) </th>
-            <th>PDB</th>     
+    <ul id="list-holder"></ul>
+    <div id="table-container">
+    <table id="userdata" border="5" class="center" style="background: white">            
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Protein Description</th>
+                <th>Target Protein</th>
+                <th>APO ID</th>
+                <th>HOLO ID</th>
+                <th>LIG HOLO</th>
+                <th>RoG <sup>HOLO</sup><sub>BS</sub><span>(&#8491;)</span></th>
+                <th>N <span> &#176;</span> of total residues</th>
+                <th>N <span> &#176;</span> of BS residues</th>
+                <th>BS residues</th>
+                <th>Download Cluster</th>
+                <th>Download apo PDB</th>     
+            </tr>
+        </thead>
+        <tbody></tbody>
     </table>
-<script>
+    </div>
+    <script>
         var data = {
-        "protein": [{
-            "ID": "1",
-            "Name": "Amitriptyline",
-            "Formula": "C20H24N",
-            "Weight": "278.41126",
-            "link": "href=amitriptyline.pdb"
-        },
-        {
-            "ID": "2",
-            "Name": "Chlorpromazine",
-            "Formula": "C17H20ClN2S",
-            "Weight": "	319.8721",
-            "link": "href=chlorpromazine.pdb"
-        },
-                            {
-            "ID": "3",
-            "Name": "NMP (1-(Naphthalen-1-ylmethyl)piperazine)",
-            "Formula": "C15H19N2",
-            "Weight": "	227.32476",
-            "link": "href=NMP.pdb"
-        }    
-    ]
-        
-    }
+            "protein": [
+                {
+                    "ID": "1",
+                    "Name": "Coagulation factor X",
+                    "Target":"FA10",
+                    "APO_ID": "1C5M (D)",
+                    "HOLO_ID": "2JKH(A)",
+                    "lig_holo": "443",
+                    "exp_holo": "7.8",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/FA10/holo_processed.pdb"
+                },
+                {
+                    "ID": "2",
+                    "Name": "Estrogen receptor alpha",
+                    "Target":"ESR1",
+                    "APO_ID": "2B23 (B)",
+                    "HOLO_ID": "1XPC (A)",
+                    "lig_holo": "E4D",
+                    "exp_holo": "9.5",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": ["href=/apo_holo/ESR1/holo_processed.pdb"]
+                },
+                {
+                    "ID": "3",
+                    "Name": "Epidermal growth factor receptor erbB1",
+                    "Target":"EGFR",
+                    "APO_ID": "4TKS*",
+                    "HOLO_ID": "3W32",
+                    "lig_holo": "HYZ",
+                    "exp_holo": "9.6",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/EGFR/holo_processed.pdb"
+                },
+                                {
+                    "ID": "4",
+                    "Name": "Progesterone receptor",
+                    "Target":"PRGR",
+                    "APO_ID": "Not Available",
+                    "HOLO_ID": "1SR7",
+                    "lig_holo": "WOW",
+                    "exp_holo": "9.7",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/PRGR/holo_processed.pdb"
+                },
+                                                {
+                    "ID": "5",
+                    "Name": "Angiotensin-converting enzyme",
+                    "Target":"ACE",
+                    "APO_ID": "4C2N",
+                    "HOLO_ID": "1UZE",
+                    "lig_holo": "KAW",
+                    "exp_holo": "9.6",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/ACE/holo_processed.pdb"
+                },
+                {
+                    "ID": "6",
+                    "Name": "Acetylcholinesterase",
+                    "Target":"ACES",
+                    "APO_ID": "1QID (A)",
+                    "HOLO_ID": "1E66",
+                    "lig_holo": "HUX",
+                    "exp_holo": "8.9",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/ACES/holo_processed.pdb"
+                },
+                                    
+                {"ID": "7",
+                    "Name": "Adenosine deaminase",
+                    "Target":"ADA",
+                    "APO_ID": "1VFL",
+                    "HOLO_ID": "2E1W",
+                    "lig_holo": "FR6",
+                    "exp_holo": "8.3",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/ADA/holo_processed.pdb"
+                },
+                                    
+                {"ID": "8",
+                    "Name": "Aldose reductase",
+                    "Target":"ALDR",
+                    "APO_ID": "1XGD*",
+                    "HOLO_ID": "4LBS (A)",
+                    "lig_holo": "NAP",
+                    "exp_holo": "11.6",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/ALDR/holo_processed.pdb"
+                },
+                                    
+                {"ID": "9",
+                    "Name": "Beta-lactamase",
+                    "Target":"AMPC",
+                    "APO_ID": "6XG1 (B)",
+                    "HOLO_ID": "6DPT",
+                    "lig_holo": "STC",
+                    "exp_holo": "8.2",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/AMPC/holo_processed.pdb"
+                },
+                                    
+                {"ID": "10",
+                    "Name": "Androgen Receptor",
+                    "Target":"ANDR",
+                    "APO_ID": "Not Available",
+                    "HOLO_ID": "8E1A",
+                    "lig_holo": "TES",
+                    "exp_holo": "9.6",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/ANDR/holo_processed.pdb"
+                },
+                                    
+                {"ID": "11",
+                    "Name": "Cyclin-dependent kinase 2",
+                    "Target":"CDK2",
+                    "APO_ID": "4EK3",
+                    "HOLO_ID": "4FKL",
+                    "lig_holo": "FAP",
+                    "exp_holo": "7.9",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/CDK2/holo_processed.pdb"
+                },
+                                    
+                {"ID": "12",
+                    "Name": "Catechol O-methyltransferase",
+                    "Target":"COMT",
+                    "APO_ID": "4PYI",
+                    "HOLO_ID": "3BWY",
+                    "lig_holo": "SAM",
+                    "exp_holo": "9.8",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/COMT/holo_processed.pdb"
+                },
+                                    
+                {"ID": "13",
+                    "Name": "Dihydrofolate reductase",
+                    "Target":"DYR",
+                    "APO_ID": "1PDB",
+                    "HOLO_ID": "3NXO",
+                    "lig_holo": "NDP",
+                    "exp_holo": "11.2",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/DYR/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "14",
+                    "Name": "Fibroblast growth factor receptor 1",
+                    "Target":"FGFR1",
+                    "APO_ID": "4UWY",
+                    "HOLO_ID": "5EW8",
+                    "lig_holo": "C4F",
+                    "exp_holo": "8.2",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/FGFR1/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "15",
+                    "Name": "Glucocorticoid receptor",
+                    "Target":"GCR",
+                    "APO_ID": "7KW7",
+                    "HOLO_ID": "3BQD",
+                    "lig_holo": "DAY",
+                    "exp_holo": "9.4",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/GCR/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "16",
+                    "Name": "Human immunodeficiency virus type 1 protease",
+                    "Target":"HIVPR",
+                    "APO_ID": "4FLG",
+                    "HOLO_ID": "5YOK",
+                    "lig_holo": "189",
+                    "exp_holo": "8.2",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/HIVPR/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "17",
+                    "Name": "Human immunodeficiency virus type 1 reverse transcriptase",
+                    "Target":"HIVRT",
+                    "APO_ID": "5J2M*",
+                    "HOLO_ID": "2YNG",
+                    "lig_holo": "KBT",
+                    "exp_holo": "8.3",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/HIVRT/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "18",
+                    "Name": "HMG-CoA reductase",
+                    "Target":"HMDH",
+                    "APO_ID": "Not Available",
+                    "HOLO_ID": "2Q6C (A)",
+                    "lig_holo": "4HI",
+                    "exp_holo": "Not Available",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/HMDH/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "19",
+                    "Name": "Heat shock protein HSP 90-alpha",
+                    "Target":"HS90A",
+                    "APO_ID": "3T0H",
+                    "HOLO_ID": "6TN5",
+                    "lig_holo": "PU2",
+                    "exp_holo": "7.5",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/HS90A/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "20",
+                    "Name": "Enoyl-[acyl-carrier-protein] reductase",
+                    "Target":"INHA",
+                    "APO_ID": "Not Available",
+                    "HOLO_ID": "4TRJ",
+                    "lig_holo": "NOT FOUND",
+                    "exp_holo": "Not Available",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/INHA/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "21",
+                    "Name": "Thymidine kinase",
+                    "Target":"KITH",
+                    "APO_ID": "Not Available",
+                    "HOLO_ID": "2UZ3 (B)",
+                    "lig_holo": "THM",
+                    "exp_holo": "Not Available",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/KITH/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "22",
+                    "Name": "Mineralocorticoid receptor",
+                    "Target":"MCR",
+                    "APO_ID": "Not Available",
+                    "HOLO_ID": "2AAX",
+                    "lig_holo": "AS4",
+                    "exp_holo": "Not Available",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/MCR/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "23",
+                    "Name": "MAP kinase p38 alpha",
+                    "Target":"MK14",
+                    "APO_ID": "2Y8O*",
+                    "HOLO_ID": "6SFI*",
+                    "lig_holo": "LGF",
+                    "exp_holo": "10.1",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/MK14/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "24",
+                    "Name": "Neuraminidase",
+                    "Target":"NRAM",
+                    "APO_ID": "Not Available",
+                    "HOLO_ID": "1BT9",
+                    "lig_holo": "RA2",
+                    "exp_holo": "Not Available",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/NRAM/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "25",
+                    "Name": "Poly [ADP-ribose] polymerase-1",
+                    "Target":"PARP1",
+                    "APO_ID": "7KK2",
+                    "HOLO_ID": "7AAC*",
+                    "lig_holo": "A92",
+                    "exp_holo": "7.5",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/PARP1/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "26",
+                    "Name": "Phosphodiesterase 5A",
+                    "Target":"PDE5A",
+                    "APO_ID": "1T9R*",
+                    "HOLO_ID": "2h44",
+                    "lig_holo": "VIA",
+                    "exp_holo": "8.9",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/PDE5A/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "27",
+                    "Name": "Cyclooxygenase-1/Prostaglandin G/H	synthase 1",
+                    "Target":"PGH1",
+                    "APO_ID": "Not Available",
+                    "HOLO_ID": "1PRH",
+                    "lig_holo": "IMS",
+                    "exp_holo": "Not Available",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/PGH1/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "28",
+                    "Name": "Cyclooxygenase-2",
+                    "Target":"PGH2",
+                    "APO_ID": "4RRY",
+                    "HOLO_ID": "3NT1",
+                    "lig_holo": "CEL",
+                    "exp_holo": "8.8",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/PGH2/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "29",
+                    "Name": "Purine nucleoside phosphorylase",
+                    "Target":"PNPH",
+                    "APO_ID": "1ULA",
+                    "HOLO_ID": "5UGF (A)",
+                    "lig_holo": "DIH",
+                    "exp_holo": "8.4",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/PNPH/holo_processed.pdb"
+                },
+                                                   
+                {"ID": "30",
+                    "Name": "Peroxisome proliferator-activated receptor	gamma",
+                    "Target":"PPARG",
+                    "APO_ID": "3B1M",
+                    "HOLO_ID": "1PRG",
+                    "lig_holo": "208",
+                    "exp_holo": "10.0",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/PPARG/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "31",
+                    "Name": "GAR transformylase",
+                    "Target":"PUR2",
+                    "APO_ID": "1ZLX",
+                    "HOLO_ID": "4ZZ1 /1NJS",
+                    "lig_holo": "KEU",
+                    "exp_holo": "10.3",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/PUR2/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "32",
+                    "Name": "Muscle glycogen phosphorylase",
+                    "Target":"PYGM",
+                    "APO_ID": "Not Available",
+                    "HOLO_ID": "8GPB",
+                    "lig_holo": "CPB",
+                    "exp_holo": "Not Available",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/PYGM/holo_processed.pdb"
+                },                                    
+                {"ID": "33",
+                    "Name": "Retinoid X receptor alpha",
+                    "Target":"RXRA",
+                    "APO_ID": "1G1U",
+                    "HOLO_ID": "1XVP",
+                    "lig_holo": "HXA",
+                    "exp_holo": "9.2",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/RXRA/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "34",
+                    "Name": "Adenosylhomocysteinase",
+                    "Target":"SAHH",
+                    "APO_ID": "Not Available",
+                    "HOLO_ID": "4PFJ (A)",
+                    "lig_holo": "NAD",
+                    "exp_holo": "Not Available",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/SAHH/holo_processed.pdb"
+                },                                    
+                {"ID": "35",
+                    "Name": "Tyrosine-protein kinase SRC",
+                    "Target":"SRC",
+                    "APO_ID": "2OIQ (B)",
+                    "HOLO_ID": "3EL8",
+                    "lig_holo": "PD5",
+                    "exp_holo": "9.5",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/SRC/holo_processed.pdb"
+                },
+                                                    
+                {"ID": "36",
+                    "Name": "Thrombin",
+                    "Target":"THRB",
+                    "APO_ID": "5GIM (B)",
+                    "HOLO_ID": "1YPE (H)",
+                    "lig_holo": "UIP",
+                    "exp_holo": "9.9",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/THRB/holo_processed.pdb"
+                },                               
+                {"ID": "37",
+                    "Name": "Trypsin I",
+                    "Target":"TRY1",
+                    "APO_ID": "3M7Q",
+                    "HOLO_ID": "4I8H",
+                    "lig_holo": "ONO",
+                    "exp_holo": "6.3",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/TRY1/holo_processed.pdb"
+                },
+                {"ID": "38",
+                    "Name": "Vascular endothelial growth factor receptor 2",
+                    "Target":"VGFR2",
+                    "APO_ID": "1VR2",
+                    "HOLO_ID": "3EWH*",
+                    "lig_holo": "608",
+                    "exp_holo": "9.5",
+                    "res_num": "X",
+                    "res_num_b":"X",
+                    "bs_res":"X",
+                    "cluster": "X",
+                    "link": "href=/apo_holo/VGFR2/holo_processed.pdb"
+                }
+            ]
+        }
 
-        $.each(data.protein, function(i, protein) {
-            var tblRow =    "<tr><td>" + protein.ID + 
-                            "</td><td>" + protein.Name + 
-                            "</td><td>" + protein.Formula +
-                            "</td><td>" + protein.Weight + 
-                            "</td><td><a target='_blank' href='"+ protein.link.split('href=')[1]+"'>"+protein.link.split('href=')[1]+"</a></td></tr>"
+        // Funzione di filtraggio dei dati
+        function filterData(searchTerm) {
+            var filteredData = data.protein.filter(function(protein) {
+                return protein.Name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+                    protein.exp_holo.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+                    protein.lig_holo.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+                    protein.HOLO_ID.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+                    protein.APO_ID.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+                    protein.Target.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+                    protein.bs_res.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 
+                    ;
+            });
+            return filteredData;
+        }
+        //per prendere il target "</td><td><a href='" + getTargetLink(protein.Target) + "' target='_blank'>" + protein.Name + "</a>" +
+
+        // Funzione per visualizzare i dati filtrati nella tabella 
+        function displayData(filteredData) {
+          $("#userdata tbody").empty(); // Svuota la tabella
+          $.each(filteredData, function(i, protein) {
+            var tblRow = "<tr><td>" + protein.ID +
+              "</td><td>" + protein.Name +
+              "</td><td>" + protein.Target +
+              "</td><td><a href='" + getTargetLink(protein.Target) + "' target='_blank'>" + protein.APO_ID + "</a>" +
+              "</td><td><a href='" + getTargetLink(protein.Target) + "' target='_blank'>" + protein.HOLO_ID + "</a>" +
+              "</td><td>" + protein.lig_holo +
+              "</td><td>" + protein.exp_holo +
+              "</td><td>" + protein.res_num +
+              "</td><td>" + protein.res_num_b +
+              "</td><td>" + protein.bs_res +
+              "</td><td>" + protein.cluster +
+              "</td><td><a target='_blank' href='" + protein.link.split('href=')[1] + "'>" + protein.link.split('href=')[1] + "</a></td></tr>"
             $(tblRow).appendTo("#userdata tbody");
+          });
+}
+
+    function getTargetLink(target) {
+          // Qui puoi definire una mappa di link per ciascun target
+          if (target === 'FA10') {
+            return 'https://www.rcsb.org/structure/1C5M';
+          } 
+          else if (target === 'ESR1') {
+            return 'https://www.rcsb.org/structure/2b23';
+          } 
+        else if (target === 'EGFR') {
+            return 'https://www.rcsb.org/structure/4TKS';
+          } 
+        else if (target === 'PRGR') {
+            return 'https://www.rcsb.org/structure/1A28';
+          } 
+        else if (target === 'ACE') {
+            return 'https://www.rcsb.org/structure/4C2N';
+          }
+        else if (target === 'ACES') {
+            return 'https://www.rcsb.org/structure/1QID';
+        }
+        else if (target === 'ADA') {
+            return 'https://www.rcsb.org/structure/1VFL';
+        }
+        else if (target === 'ALDR') {
+            return 'https://www.rcsb.org/structure/1XGD';
+          }
+        else if (target === 'AMPC') {
+            return 'https://www.rcsb.org/structure/6XG1';
+        }
+        else if (target === 'ANDR') {
+            return 'https://www.rcsb.org/structure/1E3G';
+        }
+        else if (target === 'CDK2') {
+            return 'https://www.rcsb.org/structure/4EK3';
+          }
+        else if (target === 'COMT') {
+            return 'https://www.rcsb.org/structure/4PYI';
+        }
+        else if (target === 'DYR') {
+            return 'https://www.rcsb.org/structure/IPDB';
+        }
+        else if (target === 'FGFR1') {
+            return 'https://www.rcsb.org/structure/4UWY';
+          }
+        else if (target === 'GCR') {
+            return 'https://www.rcsb.org/structure/7KW7';
+        }
+        else if (target === 'HIVPR') {
+            return 'https://www.rcsb.org/structure/4FLG';
+        }
+        else if (target === 'HIVRT') {
+            return 'https://www.rcsb.org/structure/5J2M';
+        }
+        else if (target === 'HMDH') {
+            return 'https://www.rcsb.org/structure/1R31';
+        }
+        else if (target === 'HS90A') {
+            return 'https://www.rcsb.org/structure/3T0H';
+        }
+        else if (target === 'INHA') {
+            return 'https://www.rcsb.org/structure/2PD4';
+        }
+        else if (target === 'KITH') {
+            return 'https://www.rcsb.org/structure/2UZ3';
+        }
+        else if (target === 'MCR') {
+            return 'https://www.rcsb.org/structure/5HCV';
+        }
+        else if (target === 'MK14') {
+            return 'https://www.rcsb.org/structure/2Y80';
+        }
+        else if (target === 'NRAM') {
+            return 'https://www.rcsb.org/structure/1BJI';
+        }
+        else if (target === 'PARP1') {
+            return 'https://www.rcsb.org/structure/7KK2';
+        }
+        else if (target === 'PDE5A') {
+            return 'https://www.rcsb.org/structure/1T9R';
+        }
+        else if (target === 'PGH1') {
+            return 'https://www.rcsb.org/structure/6N2Y';
+        }
+        else if (target === 'PGH2') {
+            return 'https://www.rcsb.org/structure/4RRY';
+        }
+        else if (target === 'PNPH') {
+            return 'https://www.rcsb.org/structure/1ULA';
+        }
+        else if (target === 'PPARG') {
+            return 'https://www.rcsb.org/structure/3B1M';
+        }
+        else if (target === 'PUR2') {
+            return 'https://www.rcsb.org/structure/1ZLX';
+        }
+        else if (target === 'PYGM') {
+            return 'https://www.rcsb.org/structure/2IEG';
+        }
+        else if (target === 'RXRA') {
+            return 'https://www.rcsb.org/structure/1G1U';
+        }
+        else if (target === 'SAHH') {
+            return 'https://www.rcsb.org/structure/3D64';
+        }
+        else if (target === 'SRC') {
+            return 'https://www.rcsb.org/structure/2OIQ';
+        }
+        else if (target === 'THRB') {
+            return 'https://www.rcsb.org/structure/5GIM';
+        }
+        else if (target === 'TRY1') {
+            return 'https://www.rcsb.org/structure/3M7Q';
+        }
+        else if (target === 'VGFR2') {
+            return 'https://www.rcsb.org/structure/1VR2';
+        }
+        else {
+            return '#';
+  }
+}
+
+        // Aggiungi l'evento di filtraggio alla barra di ricerca
+        $("#searchbar").on("keyup", function() {
+            var searchTerm = $(this).val();
+            var filteredData = filterData(searchTerm);
+            displayData(filteredData);
         });
 
-    
-</script> 
-</body>
-        <!-- COMMENTO -->
-</html>
-    
+        // Mostra tutti i dati al caricamento della pagina
+        displayData(data.protein);
+        
 
+    </script> 
+    
+    <p style="background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2)); padding: 10px; text-align: 25%; margin-top: 20px;" style='font-size:15px; background-color:#00FFFF; color:#808080'> <b>Legend</b>.<br> <b>*</b>: Mutant <br> <b>(.)</b>: Contains the chain information.</p>
+</body>
+</html>
